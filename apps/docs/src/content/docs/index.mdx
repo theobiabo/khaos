@@ -1,0 +1,40 @@
+---
+title: Khaos
+description: A Rust-first workspace for cryptographic entropy tooling.
+template: splash
+hero:
+  title: Entropy, without hand-waving.
+  tagline: Khaos is an open-source Rust workspace for building auditable entropy generation and Node.js bindings. The public API is still being shaped; these docs describe the repository and its intended boundaries.
+  actions:
+    - text: Start from source
+      link: /getting-started/
+      icon: right-arrow
+      variant: primary
+    - text: Read the architecture
+      link: /architecture/
+      icon: open-book
+      variant: minimal
+---
+
+## One source, explicit boundaries
+
+Khaos keeps entropy logic in Rust and treats every language binding as an adapter. That separation is the organizing principle for the workspace—not a claim about cryptographic readiness. Security review and a stable public API are still future work.
+
+<dl class="boundary-list">
+  <div>
+    <dt>Rust core</dt>
+    <dd>The planned `khaos-core` crate owns entropy primitives and policy.</dd>
+  </div>
+  <div>
+    <dt>Node bridge</dt>
+    <dd>The planned `khaos-napi` crate exposes a deliberately small NAPI-rs boundary.</dd>
+  </div>
+  <div>
+    <dt>Typed surface</dt>
+    <dd>The TypeScript package is reserved for JavaScript-facing types and ergonomics.</dd>
+  </div>
+</dl>
+
+:::caution[Early workspace]
+The repository is being scaffolded. Packages are not published and no production cryptographic guarantees are documented yet.
+:::
