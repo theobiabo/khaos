@@ -46,7 +46,8 @@ The root build performs these steps:
 1. Build `khaos_core` with Cargo.
 2. Build the native Node.js module with NAPI-rs.
 3. Compile `packages/typescript`.
-4. Check and build the Astro documentation site.
+4. Build the Rust TUI binary.
+5. Check and build the Astro documentation site.
 
 ## Run all tests
 
@@ -77,7 +78,17 @@ pnpm format
 pnpm dev
 ```
 
-Open the local URL printed by Astro. The content is loaded from the root `doc/` directory.
+Open the local URL printed by Astro. The content and renderer both live in `apps/doc`.
+
+## Run the Rust TUI
+
+Pass a recorded sample file to the CLI:
+
+```bash
+cargo run -p khaos_cli -- path/to/sample.bin
+```
+
+Press `g` to generate 32 bytes and `q` or `Esc` to quit. See [Rust TUI](/cli/) for its current behavior and planned source adapters.
 
 ## Work on only the Rust core
 

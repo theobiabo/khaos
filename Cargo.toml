@@ -1,5 +1,9 @@
 [workspace]
-members = ["crates/*"]
+members = [
+  "crates/khaos_cli",
+  "crates/khaos_core",
+  "crates/khaos_napi",
+]
 resolver = "2"
 
 [workspace.package]

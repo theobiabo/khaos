@@ -108,7 +108,7 @@ This example does not decide whether the physical source is trustworthy. Your ap
 
 ## Error behavior
 
-NAPI-rs converts Rust failures into JavaScript errors. Catch them normally:
+NAPI-rs converts Rust failures into exceptions that TypeScript applications can catch normally:
 
 ```ts
 import { generateBytes } from "@khaos/typescript";

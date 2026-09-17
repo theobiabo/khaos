@@ -1,0 +1,17 @@
+[package]
+name = "khaos_cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+
+[[bin]]
+name = "khaos"
+path = "src/main.rs"
+
+[dependencies]
+anyhow = "1.0"
+crossterm = "0.28"
+khaos_core = { path = "../khaos_core" }
+ratatui = "0.29"

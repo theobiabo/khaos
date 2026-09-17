@@ -125,14 +125,11 @@ Replay mode is predictable and must not be used to generate secrets.
 ```text
 khaos/
 ├── apps/
-│   └── web/                         Astro site and documentation renderer
+│   └── doc/                         Astro renderer and documentation content
 ├── crates/
-│   ├── khaos_core/
-│   │   ├── src/entropy/             Extraction, reporting, errors, and pool
-│   │   └── tests/                   Rust integration tests
-│   └── khaos_napi/
-│       └── src/bindings/            Node.js adapter
-├── doc/                             Documentation source
+│   ├── khaos_core/                  Entropy pipeline
+│   ├── khaos_cli/                   Rust TUI
+│   └── khaos_napi/                  Node.js adapter
 └── packages/
     └── typescript/                  TypeScript-facing API
 ```
@@ -141,7 +138,8 @@ The dependency direction is one-way:
 
 ```text
 TypeScript → NAPI-rs → Rust core
-Astro → doc content
+Rust TUI → Rust core
+Astro → local documentation content
 ```
 
 The binding does not reimplement cryptographic behavior. That keeps one source of truth for the entropy pipeline.
