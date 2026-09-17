@@ -3,53 +3,101 @@ title: khaos
 description: Physical noise in. Auditable random bytes out.
 template: splash
 hero:
-  title: Make entropy visible.
-  tagline: khaos is a small Rust project for learning how noisy physical signals can be cleaned, mixed, inspected, and delivered as random bytes.
+  title: khaos
+  tagline: Physical observations become additional cryptographic entropy through a small Rust core and a TypeScript-first API.
   actions:
-    - text: Build it locally
+    - text: Read the docs
       link: /getting_started/
       icon: right-arrow
       variant: primary
-    - text: Follow one byte
-      link: /architecture/
-      icon: open-book
+    - text: View the source
+      link: https://github.com/theobiabo/khaos
+      icon: external
       variant: minimal
 ---
 
-## Chaos is an input, not a guarantee
+## Generate from changing signals
 
-A camera watching moving liquid can produce surprising data. A microphone can hear electrical and environmental noise. Neither source is automatically safe for cryptography. khaos treats physical noise as one contribution to a pool that also starts with randomness from the operating system.
+khaos explores the same idea behind Cloudflare’s Wall of Entropy at an accessible scale. Your application records a changing physical process, passes the bytes to khaos, and receives random output mixed with operating-system randomness.
+
+<div class="install-list">
+  <div class="install-row">
+    <strong>Install the workspace</strong>
+    <code>pnpm install</code>
+  </div>
+  <div class="install-row">
+    <strong>Build the native module</strong>
+    <code>pnpm --filter @khaos/native build</code>
+  </div>
+  <div class="install-row">
+    <strong>Use the TypeScript package</strong>
+    <code>import &#123; generateBytes &#125; from "@khaos/typescript";</code>
+  </div>
+</div>
+
+## One pipeline, visible boundaries
+
+<div class="signal-line">
+  raw bytes <b>→</b> unbias <b>→</b> BLAKE3 <b>→</b> keyed pool <b>→</b> ChaCha20 <b>→</b> rekey
+</div>
 
 <dl class="boundary-list">
   <div>
     <dt>Observe</dt>
-    <dd>Accept bytes captured by a camera, microphone, sensor, recording, or another driver.</dd>
+    <dd>Capture bytes from a camera, microphone, sensor, recording, or another changing source.</dd>
   </div>
   <div>
     <dt>Unbias</dt>
-    <dd>Use the Von Neumann method to discard matching bit pairs and keep changing pairs.</dd>
+    <dd>Discard matching bit pairs with the Von Neumann method.</dd>
   </div>
   <div>
     <dt>Extract</dt>
-    <dd>Compress the remaining signal into a fixed 32-byte BLAKE3 digest.</dd>
+    <dd>Compress the surviving bits into a 32-byte BLAKE3 digest.</dd>
   </div>
   <div>
     <dt>Mix</dt>
-    <dd>Fold that digest into a private pool and generate output with ChaCha20.</dd>
+    <dd>Combine the digest with a private pool initialized from operating-system randomness.</dd>
+  </div>
+  <div>
+    <dt>Generate</dt>
+    <dd>Expand the pool state with ChaCha20, return the requested bytes, and rekey.</dd>
   </div>
 </dl>
 
-## What works today
+## Current surface
 
-- A Rust core for analysis, unbiasing, extraction, mixing, and byte generation
-- A deterministic replay mode for lessons and repeatable tests
-- NAPI-rs functions for Node.js
-- A typed TypeScript wrapper
+| Capability                    | Status    | Entry point           |
+| ----------------------------- | --------- | --------------------- |
+| Entropy sample analysis       | Available | `inspectEntropy`      |
+| Random byte generation        | Available | `generateBytes`       |
+| Deterministic replay          | Available | `replayBytes`         |
+| TypeScript wrapper            | Available | `packages/typescript` |
+| Rust core                     | Available | `crates/khaos_core`   |
+| Webcam and microphone drivers | Planned   | —                     |
+| Local daemon and REST API     | Planned   | —                     |
+| Dieharder and NIST suites     | Planned   | —                     |
 
-## What comes next
+## Start with TypeScript
 
-Hardware drivers, a local daemon, live visualization, and adapters for Dieharder and NIST SP 800-22 belong to later milestones. Statistical tests can find suspicious output, but passing them does not prove cryptographic security.
+```typescript
+import { generateBytes, inspectEntropy } from "@khaos/typescript";
+
+const sample = new Uint8Array([0b01100110, 0b10011001]);
+const report = inspectEntropy(sample);
+const bytes = generateBytes(sample, 32);
+
+console.log(report);
+console.log(Buffer.from(bytes).toString("hex"));
+```
+
+The TypeScript package calls the NAPI-rs binding, which delegates all entropy processing to the Rust core. The binding does not maintain a second cryptographic implementation.
+
+- [Set up the workspace](/getting_started/)
+- [Use the TypeScript API](/node_bindings/)
+- [Follow the entropy pipeline](/architecture/)
+- [Read the API reference](/api_reference/)
+- [Understand the security boundary](/security/)
 
 :::caution[Experimental cryptography]
-khaos has not received a security audit. Do not use it as the only entropy source for production keys, credentials, or other secrets.
+khaos has not received a security audit. Do not use it as the only entropy source for production keys, credentials, tokens, or other secrets.
 :::

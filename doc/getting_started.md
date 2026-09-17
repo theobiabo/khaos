@@ -1,13 +1,31 @@
 ---
 title: Getting started
-description: Build and run the khaos workspace locally.
+description: Install, build, test, and run the khaos workspace.
 sidebar:
   order: 1
 ---
 
-You need Node.js 22.12 or newer, pnpm 9, and the stable Rust toolchain.
+This guide gets the repository running locally. The packages are not published yet, so khaos is currently used from its source workspace.
 
-## Install the workspace
+## Requirements
+
+Install the following tools:
+
+- Node.js 22.12 or newer
+- pnpm 9 or newer
+- A stable Rust toolchain
+- A C/C++ build toolchain supported by Rust and NAPI-rs
+
+Check the installed versions:
+
+```bash
+node --version
+pnpm --version
+rustc --version
+cargo --version
+```
+
+## Clone the repository
 
 ```bash
 git clone https://github.com/theobiabo/khaos.git
@@ -15,42 +33,37 @@ cd khaos
 pnpm install
 ```
 
-## Run the tests
+`pnpm install` installs Turborepo, Astro, NAPI-rs tooling, and TypeScript dependencies. Cargo downloads Rust dependencies when a Rust command first runs.
 
-```bash
-pnpm test
-```
-
-This runs the Rust tests first. It then builds the native Node module, compiles the TypeScript package, tests the wrapper, and checks the Astro site.
-
-## Build everything
+## Build the workspace
 
 ```bash
 pnpm build
 ```
 
-The build order is handled for you:
+The root build performs these steps:
 
-1. Cargo builds `khaos_core`.
-2. NAPI-rs builds the native Node module.
-3. TypeScript compiles the public wrapper.
-4. Astro builds the documentation site.
+1. Build `khaos_core` with Cargo.
+2. Build the native Node.js module with NAPI-rs.
+3. Compile `packages/typescript`.
+4. Check and build the Astro documentation site.
 
-## Run the website
-
-```bash
-pnpm dev
-```
-
-Open the local address printed by Astro.
-
-## Run only the Rust tests
+## Run all tests
 
 ```bash
-cargo test -p khaos_core
+pnpm test
 ```
 
-Start here when changing the extraction or pool logic. These tests are fast and do not require Node.js.
+This validates the Rust pipeline, native binding, TypeScript wrapper, and documentation application.
+
+## Run linting and type checks
+
+```bash
+pnpm lint
+pnpm typecheck
+```
+
+The lint command runs Rust formatting checks, Clippy with warnings denied, TypeScript checks, and Astro checks.
 
 ## Format Rust code
 
@@ -58,6 +71,41 @@ Start here when changing the extraction or pool logic. These tests are fast and 
 pnpm format
 ```
 
-## Important limit
+## Run the documentation site
 
-The current API accepts bytes that another program has already captured. Webcam, microphone, temperature, and radio drivers are not implemented yet.
+```bash
+pnpm dev
+```
+
+Open the local URL printed by Astro. The content is loaded from the root `doc/` directory.
+
+## Work on only the Rust core
+
+```bash
+cargo test -p khaos_core
+cargo clippy -p khaos_core --all-targets -- -D warnings
+```
+
+Use this faster loop when changing extraction or pool behavior.
+
+## Work on only the native binding
+
+```bash
+pnpm --filter @khaos/native build
+```
+
+This generates the local native module and its TypeScript declarations in `crates/khaos_napi`.
+
+## Work on only the TypeScript package
+
+Build the native dependency first, then compile and test the wrapper:
+
+```bash
+pnpm --filter @khaos/native build
+pnpm --filter @khaos/typescript build
+pnpm --filter @khaos/typescript test
+```
+
+## Next steps
+
+Continue with [TypeScript usage](/node_bindings/) for the primary integration path, or [Rust usage](/rust_usage/) when you need the core crate directly.
