@@ -7,7 +7,7 @@ sidebar:
 
 The TypeScript package calls the Rust core through NAPI-rs. Entropy extraction and generation still happen in Rust.
 
-The package is not published to npm yet. The following instructions apply to the repository workspace.
+The package is not published to npm yet. The following instructions apply to the repository workspace. For a complete service boundary, error strategy, HTTP example, and deployment checklist, continue with [Application integration](/production_usage/).
 
 ## Build the native module
 

@@ -58,7 +58,7 @@ Keep bindings thin:
 3. Call `khaos_core`.
 4. Convert the result or error back.
 
-Do not implement a second entropy pipeline in the binding.
+Do not implement a second entropy pipeline in the binding. Follow [Add a language binding](/binding_guide/) for API naming, byte semantics, errors, lifecycle decisions, tests, and release requirements.
 
 ## Change the entropy pipeline
 

@@ -28,6 +28,7 @@ export default defineConfig({
           label: "Use khaos",
           items: [
             { label: "TypeScript", slug: "node_bindings" },
+            { label: "Application integration", slug: "production_usage" },
             { label: "Rust", slug: "rust_usage" }
           ]
         },
@@ -36,7 +37,8 @@ export default defineConfig({
           items: [
             { label: "API reference", slug: "api_reference" },
             { label: "Security model", slug: "security" },
-            { label: "Development", slug: "development" }
+            { label: "Development", slug: "development" },
+            { label: "Add a binding", slug: "binding_guide" }
           ]
         }
       ]
