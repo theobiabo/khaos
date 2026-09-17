@@ -8,15 +8,24 @@
     "pnpm": ">=9.0.0"
   },
   "scripts": {
-    "build": "cargo build -p khaos_core --release && turbo run build",
+    "build": "cargo build --workspace --release && turbo run build",
     "dev": "turbo run dev --parallel",
     "format": "cargo fmt --all && prettier --write .",
     "format:check": "cargo fmt --all --check && prettier --check .",
     "lint": "cargo fmt --all --check && cargo clippy --workspace --all-targets -- -D warnings && turbo run lint",
     "typecheck": "turbo run typecheck",
-    "test": "cargo test --workspace && turbo run test"
+    "test": "cargo test --workspace && turbo run test",
+    "commitlint": "commitlint --edit",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{css,js,json,jsonc,jsx,md,mdx,mjs,ts,tsx,yaml,yml}": "prettier --write"
   },
   "devDependencies": {
+    "@commitlint/cli": "^21.2.2",
+    "@commitlint/config-conventional": "^21.2.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.5.1",
     "prettier": "^3.6.2",
     "prettier-plugin-astro": "^0.14.1",
     "turbo": "^2.5.6",

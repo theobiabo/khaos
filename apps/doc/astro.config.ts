@@ -29,7 +29,8 @@ export default defineConfig({
           items: [
             { label: "TypeScript", slug: "node_bindings" },
             { label: "Application integration", slug: "production_usage" },
-            { label: "Rust", slug: "rust_usage" }
+            { label: "Rust library", slug: "rust_usage" },
+            { label: "Rust TUI", slug: "cli" }
           ]
         },
         {

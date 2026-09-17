@@ -11,9 +11,9 @@ sidebar:
 | --------------------- | --------------------------------------------------------- |
 | `crates/khaos_core`   | Entropy extraction, reporting, pool state, and generation |
 | `crates/khaos_napi`   | Conversion between Node.js values and Rust values         |
+| `crates/khaos_cli`    | Rust terminal application and TUI                         |
 | `packages/typescript` | TypeScript names, defaults, and public package surface    |
-| `apps/web`            | Astro and Starlight renderer                              |
-| `doc`                 | Documentation content                                     |
+| `apps/doc`            | Astro renderer and documentation content                  |
 
 ## Rust core modules
 
@@ -67,13 +67,13 @@ When changing extraction or generation:
 1. Add or update a public behavior test.
 2. Run Rust formatting and Clippy.
 3. Run the full workspace tests.
-4. Update `doc/architecture.md`.
-5. Update `doc/api_reference.md` if the contract changed.
+4. Update `apps/doc/src/content/docs/architecture.md`.
+5. Update `apps/doc/src/content/docs/api_reference.md` if the contract changed.
 6. Describe security implications in the pull request.
 
 ## Documentation
 
-All documentation lives in `doc/`. Astro loads this directory through `apps/web/src/content.config.ts`.
+All documentation lives in `apps/doc/src/content/docs`. Astro loads it through `apps/doc/src/content.config.ts`.
 
 Run the local site with:
 
@@ -84,5 +84,5 @@ pnpm dev
 Run a production documentation check with:
 
 ```bash
-pnpm --filter @khaos/web build
+pnpm --filter @khaos/doc build
 ```
