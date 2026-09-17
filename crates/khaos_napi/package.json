@@ -1,0 +1,20 @@
+{
+  "name": "@khaos/native",
+  "version": "0.1.0",
+  "private": true,
+  "main": "index.js",
+  "types": "index.d.ts",
+  "napi": {
+    "binaryName": "khaos"
+  },
+  "scripts": {
+    "build": "napi build --platform",
+    "dev": "napi build --platform",
+    "lint": "cargo fmt --check --manifest-path Cargo.toml && cargo clippy --manifest-path Cargo.toml -- -D warnings",
+    "typecheck": "cargo check --manifest-path Cargo.toml",
+    "test": "cargo test --manifest-path Cargo.toml"
+  },
+  "devDependencies": {
+    "@napi-rs/cli": "^3.4.1"
+  }
+}

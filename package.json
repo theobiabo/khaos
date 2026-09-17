@@ -1,5 +1,6 @@
 {
   "name": "khaos",
+  "version": "0.1.0",
   "private": true,
   "packageManager": "pnpm@9.15.0",
   "engines": {
@@ -7,14 +8,15 @@
     "pnpm": ">=9.0.0"
   },
   "scripts": {
-    "build": "turbo run build",
+    "build": "cargo build -p khaos_core --release && turbo run build",
     "dev": "turbo run dev --parallel",
-    "lint": "turbo run lint",
+    "format": "cargo fmt --all",
+    "lint": "cargo fmt --all --check && cargo clippy --workspace --all-targets -- -D warnings && turbo run lint",
     "typecheck": "turbo run typecheck",
-    "test": "turbo run test"
+    "test": "cargo test --workspace && turbo run test"
   },
   "devDependencies": {
-    "turbo": "^2.0.0",
+    "turbo": "^2.5.6",
     "typescript": "^5.9.3"
   }
 }

@@ -1,10 +1,4 @@
-/* Hallmark · genre: modern-minimal · macrostructure: Long Document · design-system: design.md · designed-as-app
- * pre-emit critique: P5 H5 E4 S5 R5 V4 · nav: Starlight native · footer: Starlight native
- * theme: custom · near-black cryptographic precision · accent: signal red
- * contrast: pass (40–41) · slop: pass (42–45) · honest: pass (46) · chrome: pass (47)
- * tokens: pass (48) · mobile: pass (34, 49, 50–57) · icons: pass (30)
- */
-@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,85..100,500..800&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,85..100,500..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap");
 @import "../../../../tokens.css";
 
 :root,
@@ -65,10 +59,24 @@ h3,
   letter-spacing: -0.04em;
 }
 
-.site-title { font-weight: 800; }
-.hero h1 { max-width: 10ch; font-size: clamp(var(--text-3xl), 8vw, 6.75rem); line-height: 0.92; }
-.hero .tagline { max-width: 54ch; color: var(--color-ink-2); }
-.hero img { display: none; }
+.site-title {
+  font-weight: 800;
+}
+
+.hero h1 {
+  max-width: 10ch;
+  font-size: clamp(var(--text-3xl), 8vw, 6.75rem);
+  line-height: 0.92;
+}
+
+.hero .tagline {
+  max-width: 54ch;
+  color: var(--color-ink-2);
+}
+
+.hero img {
+  display: none;
+}
 
 a,
 button,
@@ -94,13 +102,33 @@ button,
   border: var(--rule-hair) solid var(--color-accent);
 }
 
-.sl-link-button:active { transform: translateY(1px); }
-.sl-link-button[aria-disabled="true"], .sl-link-button:disabled { opacity: 0.5; pointer-events: none; }
-.sl-link-button[data-state="loading"] { color: var(--color-muted); cursor: wait; }
-.sl-link-button[data-state="error"] { color: var(--color-error); }
-.sl-link-button[data-state="success"] { color: var(--color-success); }
+.sl-link-button:active {
+  transform: translateY(1px);
+}
 
-.boundary-list { border-top: var(--rule-hair) solid var(--color-rule); }
+.sl-link-button[aria-disabled="true"],
+.sl-link-button:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.sl-link-button[data-state="loading"] {
+  color: var(--color-muted);
+  cursor: wait;
+}
+
+.sl-link-button[data-state="error"] {
+  color: var(--color-error);
+}
+
+.sl-link-button[data-state="success"] {
+  color: var(--color-success);
+}
+
+.boundary-list {
+  border-top: var(--rule-hair) solid var(--color-rule);
+}
+
 .boundary-list > div {
   padding-block: var(--space-lg);
   display: grid;
@@ -108,8 +136,17 @@ button,
   gap: var(--space-md);
   border-bottom: var(--rule-hair) solid var(--color-rule);
 }
-.boundary-list dt { font-family: var(--font-display); font-size: var(--text-lg); font-weight: 700; }
-.boundary-list dd { margin: 0; color: var(--color-muted); }
+
+.boundary-list dt {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+}
+
+.boundary-list dd {
+  margin: 0;
+  color: var(--color-muted);
+}
 
 code:not(pre code) {
   color: var(--color-ink);
@@ -124,19 +161,38 @@ header.header,
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .sl-link-button:hover { transform: translateY(-1px); }
-  .sl-link-button.primary:hover { background: var(--color-paper-3); }
+  .sl-link-button:hover {
+    transform: translateY(-1px);
+  }
+
+  .sl-link-button.primary:hover {
+    background: var(--color-paper-3);
+  }
 }
 
 @media (max-width: 35rem) {
-  .hero { padding-block: var(--space-2xl); }
-  .hero h1 { font-size: var(--text-display-s); }
-  .sl-link-button { width: 100%; justify-content: center; }
-  .boundary-list > div { grid-template-columns: minmax(0, 1fr); }
+  .hero {
+    padding-block: var(--space-2xl);
+  }
+
+  .hero h1 {
+    font-size: var(--text-display-s);
+  }
+
+  .sl-link-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .boundary-list > div {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     scroll-behavior: auto !important;
     animation-duration: var(--dur-micro) !important;
     animation-iteration-count: 1 !important;

@@ -1,0 +1,55 @@
+---
+title: khaos
+description: Physical noise in. Auditable random bytes out.
+template: splash
+hero:
+  title: Make entropy visible.
+  tagline: khaos is a small Rust project for learning how noisy physical signals can be cleaned, mixed, inspected, and delivered as random bytes.
+  actions:
+    - text: Build it locally
+      link: /getting_started/
+      icon: right-arrow
+      variant: primary
+    - text: Follow one byte
+      link: /architecture/
+      icon: open-book
+      variant: minimal
+---
+
+## Chaos is an input, not a guarantee
+
+A camera watching moving liquid can produce surprising data. A microphone can hear electrical and environmental noise. Neither source is automatically safe for cryptography. khaos treats physical noise as one contribution to a pool that also starts with randomness from the operating system.
+
+<dl class="boundary-list">
+  <div>
+    <dt>Observe</dt>
+    <dd>Accept bytes captured by a camera, microphone, sensor, recording, or another driver.</dd>
+  </div>
+  <div>
+    <dt>Unbias</dt>
+    <dd>Use the Von Neumann method to discard matching bit pairs and keep changing pairs.</dd>
+  </div>
+  <div>
+    <dt>Extract</dt>
+    <dd>Compress the remaining signal into a fixed 32-byte BLAKE3 digest.</dd>
+  </div>
+  <div>
+    <dt>Mix</dt>
+    <dd>Fold that digest into a private pool and generate output with ChaCha20.</dd>
+  </div>
+</dl>
+
+## What works today
+
+- A Rust core for analysis, unbiasing, extraction, mixing, and byte generation
+- A deterministic replay mode for lessons and repeatable tests
+- NAPI-rs functions for Node.js
+- A typed TypeScript wrapper
+
+## What comes next
+
+Hardware drivers, a local daemon, live visualization, and adapters for Dieharder and NIST SP 800-22 belong to later milestones. Statistical tests can find suspicious output, but passing them does not prove cryptographic security.
+
+:::caution[Experimental cryptography]
+khaos has not received a security audit. Do not use it as the only entropy source for production keys, credentials, or other secrets.
+:::

@@ -1,12 +1,14 @@
 {
-  "name": "@khaos/docs",
+  "name": "@khaos/web",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "astro dev",
     "build": "astro check && astro build",
     "lint": "astro check",
-    "typecheck": "astro check"
+    "typecheck": "astro check",
+    "test": "astro check"
   },
   "dependencies": {
     "@astrojs/starlight": "^0.42.0",
